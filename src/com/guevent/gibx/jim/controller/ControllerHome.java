@@ -179,6 +179,18 @@ public class ControllerHome implements ActionListener, MouseListener, FocusListe
 	public void keyPressed(KeyEvent ke) {
 		modelHome.rowSelected(ke, viewHome, member);
 		
+		if(ke.getKeyCode() == KeyEvent.VK_F5){
+			viewHome.setTitle("Family360 - Please wait while populating for data...");
+			viewHome.getTableModel().setRowCount(0); //Reset table model
+			if(Util.getMaxRow(viewHome.getMaxRow()) < 0){ //entered a -negative value, reset to 50
+				modelHome.fetchData(viewHome.getTableModel(), 50);
+			}else{
+				modelHome.fetchData(viewHome.getTableModel(), 
+					Util.getMaxRow(viewHome.getMaxRow())); //update the table model w/ max row
+			}
+			viewHome.setTitle("Family360 - Home | " + url);
+			viewHome.setLblReturnedRow("");
+		}
 	}
 
 	@Override
@@ -187,8 +199,8 @@ public class ControllerHome implements ActionListener, MouseListener, FocusListe
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public void keyTyped(KeyEvent ke) {
+		
 		
 	}
 

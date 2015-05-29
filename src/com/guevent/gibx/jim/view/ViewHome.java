@@ -145,6 +145,9 @@ public class ViewHome extends JFrame {
 		midPane.add(btnSearch, "split 2");
 		midPane.add(lblReturnedRow, "wrap");
 		
+		//for F5 key reload
+		this.setFocusable(true);
+		
 		tableModel = new DefaultTableModel(new Object[][]{}, new String[]{"CODE", "COI", "Assured", 
 				"ADDR", "TEL", "Inception", "Expiry", "Beneficiaries", "Dependents", "SUM ASSURED", 
 				"BPREM", "OTHERS", "NOTE", "REF. FEE", "DM", "POLICY", "COMPANY"} ){ 
@@ -286,6 +289,9 @@ public class ViewHome extends JFrame {
 		
 		txtMaxRow.setActionCommand("maxRow");
 		txtMaxRow.addActionListener(al);
+		
+		//for F5 key reload
+		this.addKeyListener(kl);
 	}
 	
 	/**============SETTERS==============================================================**/
