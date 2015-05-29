@@ -19,10 +19,7 @@ public class RowSelector {
 		rowSelected(source, row, viewHome, modelHome, m);
 	}
 	
-	public static void rowSelected(KeyEvent ke, ViewHome viewHome, ModelHome modelHome, Member m){
-		if(ke.getSource() instanceof JTable == false){
-			return;
-		}	
+	public static void rowSelected(KeyEvent ke, ViewHome viewHome, ModelHome modelHome, Member m){	
 		JTable source = (JTable)ke.getSource();
 		int row = source.getSelectedRow();
 		rowSelected(source, row, viewHome, modelHome, m);
