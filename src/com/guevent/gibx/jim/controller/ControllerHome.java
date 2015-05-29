@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
-import javax.swing.JTable;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -134,7 +134,9 @@ public class ControllerHome implements ActionListener, MouseListener, FocusListe
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource() instanceof JFrame){
+			((JFrame)e.getSource()).requestFocus();
+		}
 		
 	}
 
@@ -146,6 +148,8 @@ public class ControllerHome implements ActionListener, MouseListener, FocusListe
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
+		if(me.getSource() instanceof JFrame) return;
+		
 		modelHome.handlePopMenu(me, viewHome);
 		modelHome.rowSelected(me, viewHome, member);
 	}
@@ -178,22 +182,21 @@ public class ControllerHome implements ActionListener, MouseListener, FocusListe
 
 	@Override
 	public void keyPressed(KeyEvent ke) {
-		if(ke.getSource() instanceof JTable){
-			modelHome.rowSelected(ke, viewHome, member);
-		}else{
-			if(ke.getKeyCode() == KeyEvent.VK_F5){
-				viewHome.setTitle("Family360 - Please wait while populating for data...");
-				viewHome.getTableModel().setRowCount(0); //Reset table model
-				if(Util.getMaxRow(viewHome.getMaxRow()) < 0){ //entered a -negative value, reset to 50
-					modelHome.fetchData(viewHome.getTableModel(), 50);
-				}else{
-					modelHome.fetchData(viewHome.getTableModel(), 
-						Util.getMaxRow(viewHome.getMaxRow())); //update the table model w/ max row
-				}
-				viewHome.setTitle("Family360 - Home | " + url);
-				viewHome.setLblReturnedRow("");
+		if(ke.getKeyCode() == KeyEvent.VK_F5){
+			viewHome.setTitle("Family360 - Please wait while populating for data...");
+			viewHome.getTableModel().setRowCount(0); //Reset table model
+			if(Util.getMaxRow(viewHome.getMaxRow()) < 0){ //entered a -negative value, reset to 50
+				modelHome.fetchData(viewHome.getTableModel(), 50);
+			}else{
+				modelHome.fetchData(viewHome.getTableModel(), 
+					Util.getMaxRow(viewHome.getMaxRow())); //update the table model w/ max row
 			}
+			viewHome.setTitle("Family360 - Home | " + url);
+			viewHome.setLblReturnedRow("");
+			return;
 		}
+		
+		modelHome.rowSelected(ke, viewHome, member);
 	}
 
 	@Override

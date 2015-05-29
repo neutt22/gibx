@@ -292,6 +292,7 @@ public class ViewHome extends JFrame {
 		
 		//for F5 key reload
 		this.addKeyListener(kl);
+		this.addMouseListener(ml);
 	}
 	
 	/**============SETTERS==============================================================**/
